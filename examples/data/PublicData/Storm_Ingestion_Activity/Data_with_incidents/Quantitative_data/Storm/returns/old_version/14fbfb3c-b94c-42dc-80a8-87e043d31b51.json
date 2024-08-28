@@ -1,0 +1,27 @@
+{
+    "metric_id": "14fbfb3c-b94c-42dc-80a8-87e043d31b51",
+    "data_type": "s",
+    "seasons_lengths": [],
+    "warning": 0.8,
+    "critical": 0.9,
+    "normal_region": [],
+    "normal_region_timestamp": [],
+    "anomalies": [
+        46683,
+        46783
+    ],
+    "anomalies_timestamps": [
+        "2022-04-28 18:22:02",
+        "2022-04-29 09:58:30"
+    ],
+    "metric_name": "Check message bolt de not_found sur storm-1",
+    "contains_anomaly": true,
+    "anomaly_type": "seasonal",
+    "anomaly_scenarios": [],
+    "anomalies_formatted": [
+        [
+            45886,
+            46818
+        ]
+    ]
+}

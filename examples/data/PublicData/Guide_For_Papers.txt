@@ -1,0 +1,33 @@
+#################################################################################################
+This file maps data repository to submitted or published papers
+#################################################################################################
+
+#################################################################################################
+Entropy-based Discovery of Summary Causal Graphs in Time Series:
+#################################################################################################
+./Storm_Ingestion_Activity/Data_without_incidents/Quantitative_data/storm_fork
+
+
+#################################################################################################
+Conditional Mutual Information Estimator for Mixed Data and Associated Conditional Independence Test:
+#################################################################################################
+./Storm_Ingestion_Activity/Data_without_incidents/Mixed_data/storm_chain
+./Storm_Ingestion_Activity/Data_without_incidents/Mixed_data/storm_fork
+
+
+
+#################################################################################################
+Root Cause Identification for Collective Anomalies in Time Series given an Acyclic Summary Causal Graph with Loops:
+#################################################################################################
+./Storm_Ingestion_Activity/Data_with_incidents/Quantitative_data/Storm
+
+
+#################################################################################################
+Case Studies of Causal Discovery from IT Monitoring Time Series:
+#################################################################################################
+./Middleware_oriented_message_Activity/Data_without_incidents/
+./Storm_Ingestion_Activity/Data_with_incidents/         From this dataset we only use data without incidents: from the timestamp 45683 to timestamp 46673  
+./Web_Activity/Data_without_incidents/
+./Antivirus_Activity/Data_without_incidents/
+
+

@@ -1,0 +1,27 @@
+{
+    "metric_id": "ebe01255-9c2e-4d2f-8c4d-6d3a93504d4b",
+    "data_type": "s",
+    "seasons_lengths": [],
+    "warning": 0.8,
+    "critical": 0.9,
+    "normal_region": [],
+    "normal_region_timestamp": [],
+    "anomalies": [
+        46683,
+        46783
+    ],
+    "anomalies_timestamps": [
+        "2022-04-28 18:22:02",
+        "2022-04-29 09:59:30"
+    ],
+    "metric_name": "Group status information bolt de not_found sur storm-1",
+    "contains_anomaly": true,
+    "anomaly_type": "unknown",
+    "anomaly_scenarios": [],
+    "anomalies_formatted": [
+        [
+            45886,
+            46819
+        ]
+    ]
+}

@@ -1,0 +1,27 @@
+{
+    "metric_id": "2e3c7d7e-fd17-4c70-adab-db88c81a09da",
+    "data_type": "s",
+    "seasons_lengths": [],
+    "warning": 0.8,
+    "critical": 0.9,
+    "normal_region": [],
+    "normal_region_timestamp": [],
+    "anomalies": [
+        46683,
+        46783
+    ],
+    "anomalies_timestamps": [
+        "2022-04-28 18:22:02",
+        "2022-04-29 09:21:31"
+    ],
+    "metric_name": "Pre-Message dispatcher bolt de not_found sur storm-1",
+    "contains_anomaly": false,
+    "anomaly_type": "unknown",
+    "anomaly_scenarios": [],
+    "anomalies_formatted": [
+        [
+            45886,
+            46781
+        ]
+    ]
+}

@@ -3,9 +3,13 @@ import setuptools
 with open('README.md', 'r', encoding='utf-8') as fh:
     README = fh.read()
 
-import lingam
+# import lingam
 
-VERSION = lingam.__version__
+# VERSION = lingam.__version__
+
+# Removed import lingam
+# Set version directly
+VERSION = '2.0.4'
 
 setuptools.setup(
     name='lingam',

@@ -1,0 +1,11 @@
+cause,effect,edge
+publish_rate_causality_1,messages_causality_1,1
+consumers_causality_1,messages_causality_1,1
+publish_rate_causality_1,cpu_global_prct,1
+consumers_causality_1,cpu_global_prct,1
+publish_rate_causality_1,ram_global_prct,1
+consumers_causality_1,ram_global_prct,1
+publish_rate_causality_1,disk_io_write_mega_byte,1
+consumers_causality_1,disk_io_write_mega_byte,1
+publish_rate_causality_1,disk_io_read_mega_byte,1
+consumers_causality_1,disk_io_read_mega_byte,1

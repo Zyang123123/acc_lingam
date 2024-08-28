@@ -1,0 +1,15 @@
+cause,effect,edge
+Net_In_Global,Net_Out_Global,1
+Net_In_Global,Nb_process_http,1
+Net_In_Global,Nb_connection_mysql,1
+Nb_process_http,Cpu_http,1
+Nb_process_http,Nb_process_php,1
+Nb_process_http,Ram_http,1
+Nb_process_php,Cpu_php,1
+Nb_process_php,Nb_connection_mysql,1
+Nb_connection_mysql,Net_Out_Global,1
+Nb_connection_mysql,Disque_write_global,1
+Nb_connection_mysql,Cpu_global,1
+Cpu_http,Cpu_global,1
+Cpu_php,Cpu_global,1
+Disque_write_global,Cpu_global,1

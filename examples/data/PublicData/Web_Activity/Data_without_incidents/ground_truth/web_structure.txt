@@ -1,0 +1,15 @@
+Net_In_Global Net_Out_Global
+Net_In_Global Nb_process_http
+Net_In_Global Nb_connection_mysql
+Nb_process_http Cpu_http
+Nb_process_http Nb_process_php
+Nb_process_http Ram_http
+Nb_process_php Cpu_php
+Nb_process_php Nb_connection_mysql
+Nb_connection_mysql Net_Out_Global
+Nb_connection_mysql Disque_write_global
+Nb_connection_mysql Cpu_global
+Cpu_http Cpu_global
+Cpu_php Cpu_global
+Disque_write_global Cpu_global
+

@@ -1,0 +1,21 @@
+{
+    "metric_id": "1aa1ea46-a30d-4c83-a6ef-25ab6e1e1912",
+    "data_type": "s",
+    "seasons_lengths": [
+        29
+    ],
+    "warning": 0.8,
+    "critical": 0.9,
+    "anomalies": [
+        46683,
+        46783
+    ],
+    "contains_anomaly": true,
+    "anomaly_type": "unknown",
+    "anomaly_scenarios": [],
+    "metric_name": "capacity_last_metric_bolt de Apache-Storm-bolt_capacity_topology - monitoring_ingestion sur prd-ovh-storm-01",
+    "anomalies_timestamps": [
+        "2022-04-27 03:21:18",
+        "2022-04-29 09:57:30"
+    ]
+}

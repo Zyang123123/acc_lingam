@@ -2,7 +2,7 @@
 Python implementation of the LiNGAM algorithms.
 The LiNGAM Project: https://sites.google.com/view/sshimizu06/lingam
 """
-
+import time
 import numpy as np
 from sklearn.preprocessing import scale
 from sklearn.utils import check_array
@@ -93,12 +93,28 @@ class DirectLiNGAM(_BaseLiNGAM):
         X_ = np.copy(X)
         if self._measure == "kernel":
             X_ = scale(X_)
+        elif self._measure == "pwling_v2":
+            # Standardize all features once before the loop
+            X_ = (X - np.mean(X, axis=0)) / np.std(X, axis=0)
+            # X_residuals = self._precompute_residuals(X_)
+            start_time = time.time()
+            X_entropies = self._precompute_entropies(X_)
+            X_residuals_entropies = self._precompute_residual_entropies(X_)
+            end_time = time.time()
+            execution_time = end_time - start_time
+            print("precomputation Execution time:", execution_time, "seconds")
 
+        print("Measure method:", self._measure)
+        
+        start_time = time.time()
+        
         for _ in range(n_features):
             if self._measure == "kernel":
                 m = self._search_causal_order_kernel(X_, U)
             elif self._measure == "pwling_fast":
                 m = self._search_causal_order_gpu(X_.astype(np.float64), U.astype(np.int32))
+            elif self._measure == "pwling_v2":
+                m = self._search_causal_order_v2(U, X_entropies, X_residuals_entropies)
             else:
                 m = self._search_causal_order(X_, U)
             for i in U:
@@ -111,9 +127,18 @@ class DirectLiNGAM(_BaseLiNGAM):
                 self._partial_orders = self._partial_orders[
                     self._partial_orders[:, 0] != m
                 ]
+        end_time = time.time()
+        execution_time = end_time - start_time
+        print("search causal order Execution time:", execution_time, "seconds")
 
         self._causal_order = K
-        return self._estimate_adjacency_matrix(X, prior_knowledge=self._Aknw)
+
+        start_time = time.time()
+        self._estimate_adjacency_matrix(X, prior_knowledge=self._Aknw)
+        end_time = time.time()
+        execution_time = end_time - start_time
+        print("estimate adjacency matrix Execution time:", execution_time, "seconds")
+        return self
 
     def _extract_partial_orders(self, pk):
         """Extract partial orders from prior knowledge."""
@@ -146,6 +171,40 @@ class DirectLiNGAM(_BaseLiNGAM):
         pairs = np.unique(check_pairs, axis=0)
         return pairs[:, [1, 0]]  # [to, from] -> [from, to]
 
+    # def _precompute_residuals(self, X_std):
+    #     n_features = X_std.shape[1]
+    #     residuals = np.zeros((X_std.shape[0], n_features, n_features))
+
+    #     for i in range(n_features):
+    #         for j in range(n_features):
+    #             if i != j:
+    #                 residuals[:, i, j] = X_std[:, i] - (np.cov(X_std[:, i], X_std[:, j], bias=True)[0, 1] / np.var(X_std[:, j])) * X_std[:, j]
+        
+    #     return residuals
+
+    def _precompute_entropies(self, X_std):
+        n_features = X_std.shape[1]
+        X_entropy = np.zeros(n_features) 
+        
+        for i in range(n_features):
+            X_entropy[i] = self._entropy(X_std[:, i])
+        
+        return X_entropy
+
+    def _precompute_residual_entropies(self, X_):
+        n_features = X_.shape[1]
+        X_entropy = np.zeros((n_features, n_features))
+
+        for i in range(n_features):
+            for j in range(n_features):
+                if i != j: 
+                    residual = self._residual(X_[:, i], X_[:, j])
+                    residual_std = residual / np.std(residual) 
+                    X_entropy[i, j] = self._entropy(residual_std) 
+
+        return X_entropy
+
+
     def _residual(self, xi, xj):
         """The residual when xi is regressed on xj."""
         return xi - (np.cov(xi, xj, bias=True)[0, 1] / np.var(xj)) * xj
@@ -162,6 +221,12 @@ class DirectLiNGAM(_BaseLiNGAM):
         """Calculate the difference of the mutual informations."""
         return (self._entropy(xj_std) + self._entropy(ri_j / np.std(ri_j))) - (
             self._entropy(xi_std) + self._entropy(rj_i / np.std(rj_i))
+        )
+    
+    def _diff_mutual_info_v2(self, X_entropies, X_residual_entropies, i, j):
+        """Calculate the difference of the mutual informations."""
+        return (X_entropies[j] + X_residual_entropies[i][j]) - (
+            X_entropies[i] + X_residual_entropies[j][i]
         )
 
     def _search_candidate(self, U):
@@ -235,6 +300,24 @@ class DirectLiNGAM(_BaseLiNGAM):
                     M += np.min([0, self._diff_mutual_info(xi_std, xj_std, ri_j, rj_i)]) ** 2
             M_list.append(-1.0 * M)
         return Uc[np.argmax(M_list)]
+    
+    def _search_causal_order_v2(self, U, X_std_entropies, X_residuals_entropies):
+        M_list = []
+        for i in U:
+            # Directly use the pre-standardized data
+            # xi_std = X_std[:, i]  
+            M = 0
+            for j in U:
+                if i != j:
+                    # Directly use the pre-standardized data
+                    # xj_std = X_std[:, j]  
+                    # Directly use the pre-computed residuals
+                    # rj_i = xj_std if j in Vj and i in Uc else residuals[:, j, i]
+                    # ri_j = xi_std if i in Vj and j in Uc else residuals[:, i, j]  
+                    M += np.min([0, self._diff_mutual_info_v2(X_std_entropies, X_residuals_entropies, i, j)]) ** 2
+            M_list.append(-1.0 * M)
+        return U[np.argmax(M_list)]
+
 
     def _search_causal_order_gpu(self, X, U):
         """Accelerated Causal ordering.

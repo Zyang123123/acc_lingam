@@ -1,0 +1,27 @@
+{
+    "metric_id": "f1168af3-4d5b-4b6d-8314-ad93e14f3633",
+    "data_type": "s",
+    "seasons_lengths": [],
+    "warning": 0.8,
+    "critical": 0.9,
+    "normal_region": [],
+    "normal_region_timestamp": [],
+    "anomalies": [
+        46683,
+        46783
+    ],
+    "anomalies_timestamps": [
+        "2022-04-28 18:22:02",
+        "2022-04-29 10:09:29"
+    ],
+    "metric_name": "Real time merger bolt de not_found sur Storm-1",
+    "contains_anomaly": true,
+    "anomaly_type": "unknown",
+    "anomaly_scenarios": [],
+    "anomalies_formatted": [
+        [
+            45886,
+            46829
+        ]
+    ]
+}

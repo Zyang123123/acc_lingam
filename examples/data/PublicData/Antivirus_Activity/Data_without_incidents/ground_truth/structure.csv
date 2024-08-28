@@ -1,0 +1,17 @@
+cause,effect,edge
+memory_usage_Portal,Physical_Memory_prct_used_Portal,1
+cpu_usage_Portal,cpu_prct_used_Portal,1
+Physical_Memory_prct_used_Portal,0_C_read_Portal,1
+cpu_prct_used_Portal,0_C_read_Portal,1
+memory_usage_VDI,Physical_Memory_prct_used_VDI,1
+cpu_usage_VDI,cpu_prct_used_VDI,1
+Physical_Memory_prct_used_VDI,0_C_read_VDI,1
+cpu_prct_used_VDI,0_C_read_VDI,1
+Physical_Memory_prct_used_Portal,Chargement_portail,1
+cpu_prct_used_Portal,Chargement_portail,1
+0_C_read_Portal,Chargement_portail,1
+Physical_Memory_prct_used_VDI,Chargement_IE,1
+cpu_prct_used_VDI,Chargement_IE,1
+0_C_read_VDI,Chargement_IE,1
+Chargement_portail,Default_Transaction,1
+Chargement_IE,Default_Transaction,1

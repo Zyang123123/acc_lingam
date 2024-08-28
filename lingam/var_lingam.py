@@ -5,6 +5,7 @@ The LiNGAM Project: https://sites.google.com/view/sshimizu06/lingam
 import itertools
 import warnings
 
+import time
 import numpy as np
 from sklearn.linear_model import LinearRegression
 from sklearn.utils import check_array, resample
@@ -85,14 +86,18 @@ class VARLiNGAM:
 
         lingam_model = self._lingam_model
         if lingam_model is None:
-            lingam_model = DirectLiNGAM()
+            lingam_model = DirectLiNGAM(measure="pwling_v2")#measure="pwling_v2"
         elif not isinstance(lingam_model, _BaseLiNGAM):
             raise ValueError("lingam_model must be a subclass of _BaseLiNGAM")
 
         M_taus = self._ar_coefs
 
         if M_taus is None:
+            start_time = time.time()
             M_taus, lags, residuals = self._estimate_var_coefs(X)
+            end_time = time.time()
+            execution_time = end_time - start_time
+            print("Estimate VAR coefficients time:", execution_time, "seconds")
         else:
             lags = M_taus.shape[0]
             residuals = self._calc_residuals(X, M_taus, lags)
