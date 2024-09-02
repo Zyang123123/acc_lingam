@@ -46,4 +46,4 @@ __all__ = [
     "HighDimDirectLiNGAM",
 ]
 
-__version__ = "2.0.4"
+__version__ = "2.0.1"

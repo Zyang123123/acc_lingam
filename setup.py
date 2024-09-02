@@ -9,7 +9,7 @@ with open('README.md', 'r', encoding='utf-8') as fh:
 
 # Removed import lingam
 # Set version directly
-VERSION = '2.0.4'
+VERSION = '2.0.1'
 
 setuptools.setup(
     name='lingam',
