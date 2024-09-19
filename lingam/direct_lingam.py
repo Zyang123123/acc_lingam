@@ -117,9 +117,11 @@ class DirectLiNGAM(_BaseLiNGAM):
                 m = self._search_causal_order_v2(U, X_entropies, X_residuals_entropies)
             else:
                 m = self._search_causal_order(X_, U)
-            for i in U:
-                if i != m:
-                    X_[:, i] = self._residual(X_[:, i], X_[:, m])
+                
+            if self._measure != "pwling_v2":
+                for i in U:
+                    if i != m:
+                        X_[:, i] = self._residual(X_[:, i], X_[:, m])
             K.append(m)
             U = U[U != m]
             # Update partial orders
